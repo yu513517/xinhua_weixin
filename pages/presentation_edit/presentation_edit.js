@@ -95,6 +95,7 @@ Page({
         code: options.id
       };
       util.post('wxHelper/baogaoupYs.php', defaultData).then(default_res => {
+        console.log(default_res)
         // 勾选检查目的
         selects_mudi.forEach((selects_mudi_data) => {
           default_res.data.jianchamudi.forEach((jianchamudi_data) => {
@@ -174,6 +175,7 @@ Page({
 
           problemList: problemList,
 
+          ['submitData.ddid']: default_res.data.ddid,
           ['submitData.kancharenyuan']: default_res.data.kanchayuan,
           ['submitData.kanchariqi']: default_res.data.kanchariqi,
           ['submitData.kehumingcheng']: default_res.data.kehuname,
