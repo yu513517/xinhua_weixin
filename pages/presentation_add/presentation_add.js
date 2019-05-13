@@ -246,7 +246,6 @@ Page({
       dates: this.data.submitData
     }
     util.get('wxHelper/baogaoAdd.php', addData).then(res => {
-      console.log(res)
       wx.showToast({
         title: '添加成功',
         mask: true,

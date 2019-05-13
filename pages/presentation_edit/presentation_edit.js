@@ -193,7 +193,6 @@ Page({
           ['submitData.neibubeizhu']: default_res.data.beizhu,
           ['submitData.wenti']: submitData_wenti
         })
-        console.log(_this.data)
       })
     })
   },
