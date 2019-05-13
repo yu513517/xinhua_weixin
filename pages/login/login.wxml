@@ -1,0 +1,26 @@
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content">用户登陆</view>
+</cu-custom>
+
+<form bindsubmit="loginSubmit">
+  <view class="margin-lg padding-sm bg-white shadow-lg">
+    <view class="cu-form-group">
+      <view class="title">秘钥1</view>
+      <input placeholder="请输入秘钥" name="jingling"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">用户名</view>
+      <input placeholder="请输入用户名" name="username"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">密码</view>
+      <input type="password" placeholder="请输入密码" name="password"></input>
+    </view>
+  </view>
+
+  <view class="margin-lg">
+    <button class="cu-btn block bg-blue margin-tb-sm lg" form-type="submit">
+      <text class="icon-title text-blue"></text> 登陆
+    </button>
+  </view>
+</form>

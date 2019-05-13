@@ -1,0 +1,36 @@
+/* 首页快捷链接 */
+.m-index-imgLink .mfa {
+  height: 52rpx;
+}
+.m-index-imgLink .mfa::before {
+  font-size: 52rpx;
+  vertical-align: top;
+}
+.m-index-imgLink .mfa::after {
+  font-size: 32rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+}
+.m-index-imgLink .cu-avatar.xl {
+  font-size: 0px;
+}
+
+/* 首页广告位 */
+.index-ad-box {
+  font-size: 0px;
+  white-space: nowrap;
+}
+.index-ad-item {
+  width: 33.33333%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.index-ad-item navigator {
+  display: block;
+  width: 100%;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+.index-ad-item image {
+  width: 100%;
+}

@@ -1,0 +1,10 @@
+<view class="cu-tabbar-height">
+  <view class="cu-bar tabbar bg-white response" style="position: fixed; bottom: 0; left: 0;">
+    <navigator class="action" open-type="reLaunch" url="{{ item.url }}" wx:for="{{ tabbarList }}" wx:key="tabbarList">
+      <view class="icon-cu-image">
+        <text class="{{ item.icon }} {{ active == index ? 'text-green' : 'text-gray'}}"></text>
+      </view>
+      <view class="{{ active == index ? 'text-green' : 'text-gray'}}">{{ item.title }}</view>
+    </navigator>
+  </view>
+</view>

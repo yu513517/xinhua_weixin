@@ -1,0 +1,101 @@
+<import src="../../wxParse/wxParse.wxml" />
+
+<cu-custom bgColor="bg-gradual-blue" isBack>
+  <view slot="backText">返回</view>
+  <view slot="content">{{ kehuname }} -- 现场勘查报告</view>
+</cu-custom>
+
+<view class="cu-card no-card">
+  <view class="cu-item text-center padding-tb-sm shadow">
+    <image src="{{ kehulogo }}" mode="widthFix" style="width: 200rpx;"></image>
+    <view class="margin-top-sm text-center">{{ xuanchuan }}</view>
+  </view>
+</view>
+
+<view class="cu-bar bg-white solid-bottom margin-top">
+  <view class="action">
+    <text class="icon-titles text-orange"></text> 基本信息
+  </view>
+</view>
+
+<view class="cu-list menu sm-border">
+  <view class="cu-item">
+    <view class="content">
+      <text class="text-grey">客户名称：{{ kehuname }}</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="text-grey">客户地址：{{ address }}</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="text-grey">检查目的：{{ jianchamudi }}</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="text-grey">检查方法：{{ jianchafangfa }}</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="text-grey">检查设备：{{ jianchashebei }}</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="text-grey">勘察人员：{{ kanchayuan }}</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="text-grey">勘察日期：{{ sertime }}</text>
+    </view>
+  </view>
+</view>
+
+<view class="cu-bar bg-white solid-bottom margin-top">
+  <view class="action">
+    <text class="icon-titles text-orange"></text> 现场阐述
+  </view>
+</view>
+
+<view class="cu-list menu sm-border margin-bottom-sm">
+  <view class="cu-item">
+    <view class="content">
+      <text class="text-grey">现场情况：{{ xianchangqingkuang }}</text>
+    </view>
+  </view>
+</view>
+
+<view class="cu-bar bg-white solid-bottom margin-top">
+  <view class="action">
+    <text class="icon-titles text-orange"></text> 现场问题
+  </view>
+</view>
+
+<view class="cu-card case no-card">
+  <view class="cu-item shadow" wx:for="{{ xianchang }}" wx:key=" xianchang ">
+    <view class="image">
+      <image src="{{ imgBaseUrl + item.img_address }}" mode="widthFix" lazy-load="true"></image>
+      <view class="cu-tag {{ item.riskColor }}">{{ item.fengxiandengji }}</view>
+      <view class="cu-bar bg-shadeBottom">
+        <text class="text-cut">问题位置：{{ item.jianchaquyu }}</text>
+      </view>
+    </view>
+    <view class="padding-lr padding-bottom-sm">
+      <view class="margin-top-sm">风险问题：{{ item.cunzaiwenti }}</view>
+      <view class="margin-top-sm">专家建议：{{ item.gaijinyijian }}</view>
+    </view>
+  </view>
+</view>
+
+<!-- <view class="text-center">{{ dibuyu }}</view>
+<view class="text-right margin-top-sm">{{ gongsimingcheng }}</view>
+<view class="text-right margin-top-sm">{{ sertime }}</view> -->
+
+<!-- 底部工具栏 -->
+<site-tabbar active="2"></site-tabbar>
+<!-- End 底部工具栏 -->

@@ -1,0 +1,85 @@
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content">鑫华勘查精灵</view>
+</cu-custom>
+
+<!-- 首页轮换图 -->
+<swiper indicator-dots="true" autoplay="true" style="height: 204rpx;">
+  <block wx:for="{{ indexSwiperList }}" wx:key="indexSwiperList">
+    <swiper-item>
+      <image src="{{ newsImgLink + item.pics }}" class="slide-image response" lazy-load="true" mode="widthFix" />
+    </swiper-item>
+  </block>
+</swiper>
+<!-- End 首页轮换图 -->
+
+<!-- 首页快捷链接 -->
+<!-- <view class="flex bg-white m-index-imgLink">
+  <view class="flex-sub padding-sm text-center">
+    <view class="cu-avatar lg round bg-cyan">
+      <icon class="mfa mfa-icon-1"></icon>
+    </view>
+    <view class="text-df margin-top-sm">现场勘察</view>
+  </view>
+  <navigator class="flex-sub padding-sm text-center" url="../presentation/presentation">
+    <view class="cu-avatar lg round bg-red">
+      <icon class="mfa mfa-icon-2"></icon>
+    </view>
+    <view class="text-df margin-top-sm">勘察报告</view>
+  </navigator>
+  <view class="flex-sub padding-sm text-center">
+    <view class="cu-avatar lg round bg-yellow text-white">
+      <icon class="mfa mfa-icon-3"></icon>
+    </view>
+    <view class="text-df margin-top-sm">信息中心</view>
+  </view>
+</view> -->
+<!-- End 首页快捷链接 -->
+
+<!-- 首页公告 -->
+<view class="margin-top-sm padding-sm bg-white">
+  <view class="cu-list menu-avatar">
+    <view class="cu-item">
+      <image src="../../images/mdw1.jpg" lazy-load="true" mode="widthFix" class="cu-avatar" style="width: 80rpx;"></image>
+      <view class="content flex-sub">
+        <view></view>
+        <navigator class="text-gray text-content text-df text-cut padding-tb-xs response" wx:for="{{ noticeList }}" wx:key="noticeList" url="../article_details/article_details?id={{ item.id }}">{{ item.title }}</navigator>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- End 首页公告 -->
+
+<!-- 首页广告位 -->
+<view class="index-ad padding-tb-sm margin-top-sm bg-white">
+  <scroll-view scroll-x>
+    <view class="index-ad-box padding-lr-xs">
+      <view class="index-ad-item padding-lr-xs" wx:for="{{ indexAdList }}" wx:key="indexAdList">
+        <navigator class="" url="{{ item.srcs }}">
+          <image src="{{ newsImgLink + item.pics }}" mode="widthFix"></image>
+        </navigator>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+<!-- End 首页广告位 -->
+
+<!-- 首页新闻 -->
+<view class="cu-card article no-card margin-top-sm">
+  <navigator class="cu-item shadow" wx:for="{{ newsList }}" wx:key="newsList" url="../article_details/article_details?id={{ item.id }}">
+    <view class="title">
+      <view class="text-cut">{{ item.title }}</view>
+    </view>
+    <view class="text-gray padding-lr padding-bottom-xs">{{ item.sertime }}</view>
+    <view class="content">
+      <image src="{{ newsImgLink + item.pics }}" mode="aspectFill" wx:if="{{ item.pics != null && item.pics != '' }}"></image>
+      <view class="desc">
+        <view class="text-content">{{ item.gaishu }}</view>
+      </view>
+    </view>
+  </navigator>
+</view>
+<!-- End 首页新闻 -->
+
+<!-- 底部工具栏 -->
+<site-tabbar></site-tabbar>
+<!-- End 底部工具栏 -->

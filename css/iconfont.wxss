@@ -1,0 +1,29 @@
+@font-face {
+  font-family: 'mfa';  /* project id 1056620 */
+  src: url('//at.alicdn.com/t/font_1056620_xh2ffk9fyqg.eot');
+  src: url('//at.alicdn.com/t/font_1056620_xh2ffk9fyqg.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1056620_xh2ffk9fyqg.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1056620_xh2ffk9fyqg.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1056620_xh2ffk9fyqg.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1056620_xh2ffk9fyqg.svg#mfa') format('svg');
+}
+
+.mfa {
+  font-family: "mfa" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mfa-icon-3:before {
+  content: "\e600";
+}
+
+.mfa-icon-1:before {
+  content: "\e62d";
+}
+
+.mfa-icon-2:before {
+  content: "\e6af";
+}
+

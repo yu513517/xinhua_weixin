@@ -1,0 +1,17 @@
+<cu-custom bgColor="bg-gradual-blue" isBack>
+  <view slot="backText">返回</view>
+  <view slot="content">消息中心</view>
+</cu-custom>
+
+<view class="bg-white margin padding-tb radius shadow" wx:for="{{ messageList }}" wx:key="presentation">
+  <view class="margin-lr margin-bottom padding-bottom-sm solid-bottom flex">
+    <view class="flex-sub">{{ item.title }}</view>
+  </view>
+  <view class="margin-lr">{{ item.gaishu }}</view>
+</view>
+
+<view class="text-center padding-bottom" hidden="{{ isLoading.value }}">{{ isLoading.text }}</view>
+
+<!-- 底部工具栏 -->
+<site-tabbar active="3"></site-tabbar>
+<!-- End 底部工具栏 -->

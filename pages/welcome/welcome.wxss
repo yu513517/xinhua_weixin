@@ -1,0 +1,9 @@
+/* pages/welcome/welcome.wxss */
+page {
+  height: 100%;
+  background-color: #FFF;
+  background-image: url(https://image.weilanwl.com/gif/loading-white.gif);
+  background-size: 320rpx;
+  background-position: center;
+  background-repeat: no-repeat;
+}

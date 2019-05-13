@@ -1,0 +1,32 @@
+<import src="../../wxParse/wxParse.wxml" />
+
+<cu-custom bgColor="bg-gradual-blue" isBack>
+  <view slot="backText">返回</view>
+  <view slot="content">{{ articleTitle }}</view>
+</cu-custom>  
+
+<view class="cu-bar bg-white solid-bottom">
+  <view class='action'>
+    <text class='icon-titles text-orange '></text> {{ articleTitle }}
+  </view>
+</view>
+
+<view class="cu-card dynamic">
+  <view class="cu-item shadow">
+    <view class="cu-list menu-avatar">
+      <view class="cu-item">
+        <view class="content" style="left: 30rpx">
+          <view>{{ articleAuthor }}</view>
+          <view class="text-gray text-sm flex justify-between">{{ articleSertime }}</view>
+        </view>
+      </view>
+    </view>
+    <view class="text-content" style="max-height: none !important">
+      <template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
+    </view>
+  </view>
+</view>
+
+<!-- 底部工具栏 -->
+<site-tabbar active="99"></site-tabbar>
+<!-- End 底部工具栏 -->

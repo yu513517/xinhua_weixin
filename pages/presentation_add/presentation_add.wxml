@@ -1,0 +1,233 @@
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content">新增勘察施工</view>
+</cu-custom>
+
+<form bindsubmit="submitPresentation">
+  <!-- 勘察员 -->
+  <view class="cu-form-group">
+    <view class="title">勘察人员</view>
+    <input placeholder="请填写勘察人员姓名" class="text-df" name="kancharenyuan" value="{{ submitData.kancharenyuan }}" bindinput="inputChange" data-key="submitData.kancharenyuan"></input>
+  </view>
+  <!-- End 勘察员 -->
+
+  <!-- 勘察日期 -->
+  <view class="cu-form-group">
+    <view class="title">勘察日期</view>
+    <picker mode="date" value="{{ submitData.kanchariqi }}" bindchange="selectorChange" data-key="submitData.kanchariqi">
+      <view class="picker text-left text-df">
+        {{ submitData.kanchariqi }}
+      </view>
+    </picker>
+  </view>
+  <!-- End 勘察日期 -->
+
+  <!-- 客户名称 -->
+  <view class="cu-form-group">
+    <view class="title">客户名称</view>
+    <input placeholder="请填写客户名称" class="text-df" name="kehumingcheng" value="{{ submitData.kehumingcheng }}" bindinput="inputChange" data-key="submitData.kehumingcheng"></input>
+  </view>
+  <!-- End 客户名称 -->
+
+  <!-- 客户地址 -->
+  <view class="cu-form-group">
+    <view class="title">客户地址</view>
+    <input placeholder="请输入客户地址" disabled class="text-df" name="kehudizhi" value="{{ submitData.kehudizhi }}" bindinput="inputChange" data-key="submitData.kehudizhi"></input>
+    <button class="cu-btn bg-green shadow" bindtap="getUserLocation">获取</button>
+  </view>
+  <!-- End 客户地址 -->
+
+  <!-- 检查目的 -->
+  <view class="cu-form-group">
+    <view class="title">检查目的</view>
+    <input value="已选{{ submitData.jianchamudi.length }}项" disabled bindtap="showModal" data-target="model_1" class="text-df"></input>
+    <text class="cuIcon-right" bindtap="showModal"></text>
+
+    <view class="cu-modal bottom-modal {{ modalName == 'model_1'?'show':'' }}" bindtap="hideModal">
+      <view class="cu-dialog" catchtap>
+        <view class="padding-sm">
+          <scroll-view scroll-y style="max-height: 550rpx;">
+            <checkbox-group bindchange="selectorChange" data-key="submitData.jianchamudi">
+              <view class="cu-form-group" wx:for="{{ selects_mudi }}" wx:key="{{ selects_mudi }}">
+                <view class="title">{{ item.name }}</view>
+                <checkbox class="round blue" value="{{ item.id }}" checked="{{ item.checked }}"></checkbox>
+              </view>
+            </checkbox-group>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- End 检查目的 -->
+
+  <!-- 检查方法 -->
+  <view class="cu-form-group">
+    <view class="title">检查方法</view>
+    <input value="已选{{ submitData.jianchafangfa.length }}项" disabled bindtap="showModal" data-target="model_2" class="text-df"></input>
+    <text class="cuIcon-right" bindtap="showModal"></text>
+
+    <view class="cu-modal bottom-modal {{ modalName == 'model_2'?'show':'' }}" bindtap="hideModal">
+      <view class="cu-dialog" catchtap>
+        <view class="padding-sm">
+          <scroll-view scroll-y style="max-height: 550rpx;">
+            <checkbox-group bindchange="selectorChange" data-key="submitData.jianchafangfa">
+              <view class="cu-form-group" wx:for="{{ selects_fangfa }}" wx:key="{{ selects_fangfa }}">
+                <view class="title">{{ item.name }}</view>
+                <checkbox class="round blue" value="{{ item.id }}" checked="{{ item.checked }}"></checkbox>
+              </view>
+            </checkbox-group>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- End 检查方法 -->
+
+  <!-- 检查设备 -->
+  <view class="cu-form-group">
+    <view class="title">检查设备</view>
+    <input value="已选{{ submitData.jianchashebei.length }}项" disabled bindtap="showModal" data-target="model_3" class="text-df"></input>
+    <text class="cuIcon-right" bindtap="showModal"></text>
+
+    <view class="cu-modal bottom-modal {{ modalName == 'model_3'?'show':'' }}" bindtap="hideModal">
+      <view class="cu-dialog" catchtap>
+        <view class="padding-sm">
+          <scroll-view scroll-y style="max-height: 550rpx;">
+            <checkbox-group bindchange="selectorChange" data-key="submitData.jianchashebei">
+              <view class="cu-form-group" wx:for="{{ selects_shebei }}" wx:key="{{ selects_shebei }}">
+                <view class="title">{{ item.name }}</view>
+                <checkbox class="round blue" value="{{ item.id }}" checked="{{ item.checked }}"></checkbox>
+              </view>
+            </checkbox-group>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- End 检查设备 -->
+
+  <!-- 现场情况 -->
+  <view class="cu-form-group">
+    <view class="title">现场情况</view>
+    <input value="已选{{ submitData.xianchangqingkuang.length }}项" disabled bindtap="showModal" data-target="model_4" class="text-df"></input>
+    <text class="cuIcon-right" bindtap="showModal"></text>
+
+    <view class="cu-modal bottom-modal {{ modalName == 'model_4'?'show':'' }}" bindtap="hideModal">
+      <view class="cu-dialog" catchtap>
+        <view class="padding-sm">
+          <scroll-view scroll-y style="max-height: 550rpx;">
+            <checkbox-group bindchange="selectorChange" data-key="submitData.xianchangqingkuang">
+              <view class="cu-form-group" wx:for="{{ selects_qingkuang }}" wx:key="{{ selects_qingkuang }}">
+                <view class="title">{{ item.name }}</view>
+                <checkbox class="round blue" value="{{ item.id }}" checked="{{ item.checked }}"></checkbox>
+              </view>
+            </checkbox-group>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- End 现场情况 -->
+
+  <!-- 内部备注 -->
+  <view class="cu-form-group margin-top-sm">
+    <textarea placeholder="请填写内部备注" maxlength="-1" disabled="{{ modalName != null }}" name="neibubeizhu" value="{{ submitData.neibubeizhu }}" bindinput="inputChange" data-key="submitData.neibubeizhu"></textarea>
+  </view>
+  <!-- End 内部备注 -->
+
+  <view class="margin-top" wx:for="{{problemList}}" wx:key="problemList">
+    <!-- 现场照片 -->
+    <view class="cu-bar bg-white solid-bottom margin-top">
+      <view class="action">现场照片</view>
+      <view class="action">
+        <view class="cu-avatar-group" hidden="{{item.xianchangzhaopian==''?true:''}}">
+          <view class="cu-avatar round" style="background-image:url({{item.xianchangzhaopian}}); width: 70rpx; height: 70rpx;"></view>
+        </view>
+        <button class="cu-btn round bg-green shadow" bindtap="chooseScenePhotos" data-index="{{index}}">
+          <text class="cuIcon-upload"></text> 拍照
+        </button>
+      </view>
+    </view>
+    <!-- End 现场照片 -->
+
+    <!-- 风险等级 -->
+    <view class="cu-form-group">
+      <view class="title">风险等级</view>
+      <picker bindchange="selectorChange" data-key="submitData.wenti" data-itemkey="fengxiandengji" data-index="{{ index }}" data-checked-name="fengxiandengjiChecked" value="{{ submitData.wenti[index].fengxiandengji }}" range="{{ item.fengxiandengji }}" range-key="{{ 'name' }}">
+        <view class="picker">
+          {{ item.fengxiandengji[item.fengxiandengjiChecked].name }}
+        </view>
+      </picker>
+    </view>
+    <!-- End 风险等级 -->
+
+    <!-- 检查区域 -->
+    <view class="cu-form-group">
+      <view class="title">检查区域</view>
+      <picker bindchange="selectorChange" data-key="submitData.wenti" data-itemkey="jianchaquyu" data-index="{{ index }}" data-checked-name="jianchaquyuChecked" range="{{ item.jianchaquyu }}" range-key="{{ 'name' }}">
+        <view class="picker">
+          {{ item.jianchaquyu[item.jianchaquyuChecked].name }}
+        </view>
+      </picker>
+    </view>
+    <!-- End 检查区域 -->
+
+    <!-- 选择预设/手动输入控制器 -->
+    <view class="cu-form-group">
+      <view class="title">{{ item.yusheChecked ? '选择预设' : '手动输入' }}</view>
+      <switch checked="{{ item.yusheChecked }}" bindchange="yusheChange" data-index="{{ index }}"></switch>
+    </view>
+    <!-- End 选择预设/手动输入控制器 -->
+
+    <!-- 选择预设 -->
+    <view class="cu-form-group" style="display:{{!item.yusheChecked?'none':''}}">
+      <view class="title">选择预设</view>
+      <input value="已选{{ submitData.wenti[index].jianchayushe.length }}项" disabled bindtap="showModal" data-target="model_yushe_{{ index }}" class="text-df"></input>
+      <text class="cuIcon-right" bindtap="showModal"></text>
+
+      <view class="cu-modal bottom-modal {{ modalName == 'model_yushe_'+index?'show':'' }}" bindtap="hideModal">
+        <view class="cu-dialog" catchtap>
+          <view class="cu-bar bg-white">
+            <view class="action text-blue" bindtap="hideModal">取消</view>
+            <view class="action text-green" bindtap="hideModal">确定</view>
+          </view>
+          <view class="padding-sm">
+            <scroll-view scroll-y style="max-height: 550rpx;">
+              <checkbox-group bindchange="selectorChange" data-key="submitData.wenti" data-index="{{ index }}" data-itemkey="jianchayushe">
+                <view class="cu-form-group" wx:for="{{ item.jianchayushe }}" wx:for-item="jianchayushe" wx:key="{{ jianchayushe }}">
+                  <view class="title">{{ jianchayushe.xianshibiaoti }}</view>
+                  <checkbox class="round blue" value="{{ jianchayushe.id }}" checked="{{ jianchayushe.checked }}"></checkbox>
+                </view>
+              </checkbox-group>
+            </scroll-view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- End 选择预设 -->
+
+    <!-- 存在问题 -->
+    <view class="cu-form-group" style="display: {{ item.yusheChecked ? 'none' : '' }}">
+      <textarea placeholder="请填写存在问题" maxlength="-1" disabled="{{ modalName != null }}" name="cunzaiwenti[]" class="margin-tb-sm response" style="height: 150rpx" value="{{ submitData.wenti[index].cunzaiwenti }}" bindinput="inputChange" data-key="submitData.wenti" data-index="{{ index }}" data-itemkey="cunzaiwenti"></textarea>
+    </view>
+    <!-- End 存在问题 -->
+
+    <!-- 改进意见 -->
+    <view class="cu-form-group" style="display: {{ item.yusheChecked ? 'none' : '' }}">
+      <textarea placeholder="请填写改进意见" maxlength="-1" disabled="{{ modalName != null }}" name="gaijinyijian[]" class="margin-tb-sm response" style="height: 150rpx" value="{{ submitData.wenti[index].gaijinyijian }}" bindinput="inputChange" data-key="submitData.wenti" data-index="{{ index }}" data-itemkey="gaijinyijian"></textarea>
+    </view>
+    <!-- End 改进意见 -->
+
+    <view class="bg-white padding-sm" style="display: {{ item.canDel == '' ? 'none' : '' }}">
+      <button class="cu-ctn bg-red" bindtap="delProblems" data-index="{{index}}">删除问题</button>
+    </view>
+  </view>
+
+  <view class="cu-bar btn-group padding">
+    <button class="cu-btn bg-blue shadow-blur lg" bindtap="newProblems">新增问题</button>
+    <button class="cu-btn bg-green shadow-blur lg" form-type="submit">确认提交</button>
+  </view>
+</form>
+
+<!-- 底部工具栏 -->
+<site-tabbar active="1"></site-tabbar>
+<!-- End 底部工具栏 -->
