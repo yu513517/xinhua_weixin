@@ -152,7 +152,7 @@
     <!-- 风险等级 -->
     <view class="cu-form-group">
       <view class="title">风险等级</view>
-      <picker bindchange="selectorChange" data-key="submitData.wenti" data-itemkey="fengxiandengji" data-index="{{ index }}" data-checked-name="fengxiandengjiChecked" value="{{ submitData.wenti[index].fengxiandengji }}" range="{{ item.fengxiandengji }}" range-key="{{ 'name' }}">
+      <picker bindchange="selectorChange" data-key="submitData.wenti" data-itemkey="fengxiandengji" data-index="{{ index }}" data-checked-name="fengxiandengjiChecked" value="{{ item.jianchaquyuChecked }}" range="{{ item.fengxiandengji }}" range-key="{{ 'name' }}">
         <view class="picker">
           {{ item.fengxiandengji[item.fengxiandengjiChecked].name }}
         </view>
@@ -163,7 +163,7 @@
     <!-- 检查区域 -->
     <view class="cu-form-group">
       <view class="title">检查区域</view>
-      <picker bindchange="selectorChange" data-key="submitData.wenti" data-itemkey="jianchaquyu" data-index="{{ index }}" data-checked-name="jianchaquyuChecked" range="{{ item.jianchaquyu }}" range-key="{{ 'name' }}">
+      <picker bindchange="selectorChange" data-key="submitData.wenti" data-itemkey="jianchaquyu" data-index="{{ index }}" data-checked-name="jianchaquyuChecked" data-select-name="selects_quyu" range="{{ item.jianchaquyu }}" range-key="{{ 'name' }}">
         <view class="picker">
           {{ item.jianchaquyu[item.jianchaquyuChecked].name }}
         </view>

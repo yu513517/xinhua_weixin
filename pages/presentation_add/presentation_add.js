@@ -246,6 +246,7 @@ Page({
       dates: this.data.submitData
     }
     util.get('wxHelper/baogaoAdd.php', addData).then(res => {
+      console.log(res)
       wx.showToast({
         title: '添加成功',
         mask: true,
@@ -261,6 +262,7 @@ Page({
   // 单选绑定事件
   selectorChange: function(e) {
     var value = e.detail.value;
+    var selectName = e.target.dataset.selectName;
 
     if (e.target.dataset.index != null && e.target.dataset.itemkey != null && e.target.dataset.itemkey != '') {
       var key = e.target.dataset.key + '['+ e.target.dataset.index +'].' + e.target.dataset.itemkey;
@@ -276,9 +278,15 @@ Page({
       })
     }
 
-    this.setData({
-      [key]: value
-    })
+    if (selectName) {
+      this.setData({
+        [key]: this.data[selectName][value].id
+      })
+    } else {
+      this.setData({
+        [key]: value
+      })
+    }
   },
 
   // 输入框绑定事件

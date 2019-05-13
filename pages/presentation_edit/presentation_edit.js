@@ -95,7 +95,6 @@ Page({
         code: options.id
       };
       util.post('wxHelper/baogaoupYs.php', defaultData).then(default_res => {
-        console.log(default_res)
         // 勾选检查目的
         selects_mudi.forEach((selects_mudi_data) => {
           default_res.data.jianchamudi.forEach((jianchamudi_data) => {
@@ -130,8 +129,15 @@ Page({
         })
 
         default_res.data.wenti.forEach((wenti_data) => {
+          var jianchaquyuIndex = 0;
+          for (var i = 0; i < selects_quyu.length; i++) {
+            if (selects_quyu[i].id == wenti_data.jianchaquyu) {
+              jianchaquyuIndex = i
+            }
+          }
+
           problemList.push({
-            xianchangzhaopian: app.globalData.baseUrl + wenti_data.img_address,
+            xianchangzhaopian: (wenti_data.img_address ? app.globalData.baseUrl + wenti_data.img_address : wenti_data.img_address),
             fengxiandengji: [{
               id: 0,
               name: '低'
@@ -144,7 +150,7 @@ Page({
             }],
             fengxiandengjiChecked: wenti_data.fengxiandengji,
             jianchaquyu: selects_quyu,
-            jianchaquyuChecked: wenti_data.jianchaquyu,
+            jianchaquyuChecked: jianchaquyuIndex,
             jianchayushe: selects_yushe,
             existingProblems: wenti_data.cunzaiwenti,
             suggestions: wenti_data.gaijinyijian,
@@ -187,6 +193,7 @@ Page({
           ['submitData.neibubeizhu']: default_res.data.beizhu,
           ['submitData.wenti']: submitData_wenti
         })
+        console.log(_this.data)
       })
     })
   },
@@ -355,6 +362,7 @@ Page({
   // 单选绑定事件
   selectorChange: function(e) {
     var value = e.detail.value;
+    var selectName = e.target.dataset.selectName;
 
     if (e.target.dataset.index != null && e.target.dataset.itemkey != null && e.target.dataset.itemkey != '') {
       var key = e.target.dataset.key + '['+ e.target.dataset.index +'].' + e.target.dataset.itemkey;
@@ -370,9 +378,15 @@ Page({
       })
     }
 
-    this.setData({
-      [key]: value
-    })
+    if (selectName) {
+      this.setData({
+        [key]: this.data[selectName][value].id
+      })
+    } else {
+      this.setData({
+        [key]: value
+      })
+    }
   },
 
   // 输入框绑定事件
