@@ -162,8 +162,6 @@ Page({
             })
           })
 
-          console.log(wenti_data)
-
           problemList.push({
             xianchangzhaopian: (wenti_data.img_address ? app.globalData.baseUrl + wenti_data.img_address : wenti_data.img_address),
             fengxiandengji: [{
@@ -328,7 +326,6 @@ Page({
           filePath: tempFilePaths[0],
           name: 'imgfiles',
           success: function(res) {
-            console.log(res)
             _this.setData({
               ['problemList['+ e.target.dataset.index +'].xianchangzhaopian']: tempFilePaths[0],
               ['submitData.wenti['+ e.target.dataset.index +'].xianchangzhaopian']: res.data
