@@ -148,7 +148,7 @@
       </view>
     </view>
 
-    <!-- <view hidden="{{item.xianchangzhaopian==''?true:''}}"><image src="{{item.xianchangzhaopian}}" style="width: 100%;" mode="widthFix"></image></view> -->
+    <view hidden="{{item.xianchangzhaopian==''?true:''}}"><image src="{{item.xianchangzhaopian}}" style="width: 100%;" mode="widthFix"></image></view>
     <!-- End 现场照片 -->
 
     <!-- 风险等级 -->
