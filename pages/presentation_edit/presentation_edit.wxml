@@ -139,14 +139,16 @@
     <view class="cu-bar bg-white solid-bottom margin-top">
       <view class="action">现场照片</view>
       <view class="action">
-        <view class="cu-avatar-group" hidden="{{item.xianchangzhaopian==''?true:''}}">
+        <!-- <view class="cu-avatar-group" hidden="{{item.xianchangzhaopian==''?true:''}}">
           <view class="cu-avatar round" style="background-image:url({{item.xianchangzhaopian}}); width: 70rpx; height: 70rpx;"></view>
-        </view>
-        <button class="cu-btn round bg-green shadow" bindtap="chooseScenePhotos" data-index="{{index}}">
+        </view> -->
+        <button class="cu-btn round bg-green" bindtap="chooseScenePhotos" data-index="{{index}}">
           <text class="cuIcon-upload"></text> 拍照
         </button>
       </view>
     </view>
+
+    <!-- <view hidden="{{item.xianchangzhaopian==''?true:''}}"><image src="{{item.xianchangzhaopian}}" style="width: 100%;" mode="widthFix"></image></view> -->
     <!-- End 现场照片 -->
 
     <!-- 风险等级 -->
@@ -186,10 +188,6 @@
 
       <view class="cu-modal bottom-modal {{ modalName == 'model_yushe_'+index?'show':'' }}" bindtap="hideModal">
         <view class="cu-dialog" catchtap>
-          <view class="cu-bar bg-white">
-            <view class="action text-blue" bindtap="hideModal">取消</view>
-            <view class="action text-green" bindtap="hideModal">确定</view>
-          </view>
           <view class="padding-sm">
             <scroll-view scroll-y style="max-height: 550rpx;">
               <checkbox-group bindchange="selectorChange" data-key="submitData.wenti" data-index="{{ index }}" data-itemkey="jianchayushe">
