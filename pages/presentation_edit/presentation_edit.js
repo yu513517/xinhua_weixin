@@ -78,25 +78,28 @@ Page({
     var selectsData = {
       jingling: this.data.jingling
     };
-    util.post('wxHelper/baogaoYs.php', selectsData).then(res => {
-      var selects_mudi = res.data.jianchamudi;
-      var selects_fangfa = res.data.jianchafangfa;
-      var selects_shebei = res.data.jianchashebei;
-      var selects_qingkuang = res.data.xianchangkancha;
-      var selects_quyu = res.data.jianchaquyu;
-      var selects_yushe = res.data.jianchayushe;
-      var problemList = [];
-      var problemList_index = 0;
-      var submitData_wenti = [];
 
-      // 设置默认信息
-      var defaultData = {
-        jingling: this.data.jingling,
-        code: options.id
-      };
+    // 设置默认信息
+    var defaultData = {
+      jingling: this.data.jingling,
+      code: 112
+    };
+
+    // 设置下拉框默认信息
+    
+    util.post('wxHelper/baogaoYs.php', selectsData).then(res => {
+      _this.setData({
+        selects_mudi: res.data.jianchamudi,
+        selects_fangfa: res.data.jianchafangfa,
+        selects_shebei: res.data.jianchashebei,
+        selects_qingkuang: res.data.xianchangkancha,
+        selects_quyu: res.data.jianchaquyu,
+        selects_yushe: res.data.jianchayushe,
+      })
+
       util.post('wxHelper/baogaoupYs.php', defaultData).then(default_res => {
         // 勾选检查目的
-        selects_mudi.forEach((selects_mudi_data) => {
+        _this.data.selects_mudi.forEach((selects_mudi_data) => {
           default_res.data.jianchamudi.forEach((jianchamudi_data) => {
             if (selects_mudi_data.id == jianchamudi_data) {
               selects_mudi_data.checked = 'true'
@@ -104,7 +107,7 @@ Page({
           })
         })
         // 勾选检查方法
-        selects_fangfa.forEach((selects_fangfa_data) => {
+        _this.data.selects_fangfa.forEach((selects_fangfa_data) => {
           default_res.data.jianchafangfa.forEach((jianchafangfa_data) => {
             if (selects_fangfa_data.id == jianchafangfa_data) {
               selects_fangfa_data.checked = 'true'
@@ -112,7 +115,7 @@ Page({
           })
         })
         // 勾选检查设备
-        selects_shebei.forEach((selects_shebei_data) => {
+        _this.data.selects_shebei.forEach((selects_shebei_data) => {
           default_res.data.jianchashebei.forEach((jianchashebei_data) => {
             if (selects_shebei_data.id == jianchashebei_data) {
               selects_shebei_data.checked = 'true'
@@ -120,7 +123,7 @@ Page({
           })
         })
         // 勾选现场情况
-        selects_qingkuang.forEach((selects_qingkuang_data) => {
+        _this.data.selects_qingkuang.forEach((selects_qingkuang_data) => {
           default_res.data.xianchangqingkuang.forEach((xianchangqingkuang_data) => {
             if (selects_qingkuang_data.id == xianchangqingkuang_data) {
               selects_qingkuang_data.checked = 'true'
@@ -128,13 +131,36 @@ Page({
           })
         })
 
+        var problemList = [];
+        var problemList_index = 0;
+        var submitData_wenti = [];
+        var problemList_selects_yushe = [];
+        
         default_res.data.wenti.forEach((wenti_data) => {
+          // 设置检查区域选中下标
           var jianchaquyuIndex = 0;
-          for (var i = 0; i < selects_quyu.length; i++) {
-            if (selects_quyu[i].id == wenti_data.jianchaquyu) {
+          for (var i = 0; i < _this.data.selects_quyu.length; i++) {
+            if (_this.data.selects_quyu[i].id == wenti_data.jianchaquyu) {
               jianchaquyuIndex = i
             }
           }
+
+          // 勾选预设
+          _this.data.selects_yushe.forEach(selects_yushe_data => {
+            var obj = {}
+            for (var i in selects_yushe_data) {
+              obj[i] = selects_yushe_data[i]
+            }
+            
+            problemList_selects_yushe.push(obj)
+          })
+          problemList_selects_yushe.forEach((yushe_data, yushe_index) => {
+            wenti_data.yusheid.forEach((yusheid_data) => {
+              if (yushe_data.id == yusheid_data) {
+                problemList_selects_yushe[yushe_index].checked = 'true'
+              }
+            })
+          })
 
           problemList.push({
             xianchangzhaopian: (wenti_data.img_address ? app.globalData.baseUrl + wenti_data.img_address : wenti_data.img_address),
@@ -149,9 +175,9 @@ Page({
               name: '高'
             }],
             fengxiandengjiChecked: wenti_data.fengxiandengji,
-            jianchaquyu: selects_quyu,
+            jianchaquyu: _this.data.selects_quyu,
             jianchaquyuChecked: jianchaquyuIndex,
-            jianchayushe: selects_yushe,
+            jianchayushe: problemList_selects_yushe,
             existingProblems: wenti_data.cunzaiwenti,
             suggestions: wenti_data.gaijinyijian,
             yusheChecked: wenti_data.yushe,
@@ -163,22 +189,16 @@ Page({
             fengxiandengji: wenti_data.fengxiandengji,
             jianchaquyu: wenti_data.jianchaquyu,
             yusheChecked: wenti_data.yushe,
-            jianchayushe: wenti_data.yusheid,
+            jianchayushe: wenti_data.yusheid != '' ? wenti_data.yusheid : [],
             cunzaiwenti: wenti_data.cunzaiwenti,
             gaijinyijian: wenti_data.gaijinyijian
           })
 
           problemList_index = 1
+          problemList_selects_yushe = []
         })
 
         _this.setData({
-          selects_mudi: selects_mudi,
-          selects_fangfa: selects_fangfa,
-          selects_shebei: selects_shebei,
-          selects_qingkuang: selects_qingkuang,
-          selects_quyu: selects_quyu,
-          selects_yushe: selects_yushe,
-
           problemList: problemList,
 
           ['submitData.ddid']: default_res.data.ddid,

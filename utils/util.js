@@ -1,6 +1,8 @@
 const app = getApp()
+
 // 默认请求地址
 const baseUrl = app.globalData.baseUrl;
+
 // 时间格式化
 const formatTime = date => {
   const year = date.getFullYear()
