@@ -6,10 +6,9 @@
     "pages/about/about",
     "pages/article_details/article_details",
     "pages/presentation/presentation",
-    "pages/presentation_add/presentation_add",
+    "pages/presentation_active/presentation_active",
     "pages/presentation_details/presentation_details",
-    "pages/message/message",
-    "pages/presentation_edit/presentation_edit"
+    "pages/message/message"
   ],
   "window": {
     "backgroundTextStyle": "light",

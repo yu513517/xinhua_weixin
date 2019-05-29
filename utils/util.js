@@ -28,39 +28,38 @@ const formatDate = date => {
   return [year, month, day].map(formatNumber).join('-')
 }
 
-// loading配置，请求次数统计
-function startLoading() {
-  wx.showLoading({
-    title: 'Loading...',
-    icon: 'none',
-    mask: true
-  })
-}
-function endLoading() {
-  wx.hideLoading();
-}
-// 声明一个对象用于存储请求个数
-var needLoadingRequestCount = 0;
-function showFullScreenLoading() {
-  if (needLoadingRequestCount === 0) {
-    startLoading();
+// Loading配置，请求次数统计
+var needLoadingRequestCount = 0 // 声明一个变量用于存储请求个数
+var loadingFactory = {
+  showFullScreenLoading: function() {
+    if (needLoadingRequestCount === 0) {
+      wx.showLoading({
+        title: 'Loading...',
+        icon: 'none',
+        mask: true
+      })
+    }
+
+    needLoadingRequestCount++
+  },
+
+  tryHideFullScreenLoading: function() {
+    if (needLoadingRequestCount <= 0) return
+
+    needLoadingRequestCount--
+
+    if (needLoadingRequestCount === 0) {
+      wx.hideLoading()
+    }
   }
-  needLoadingRequestCount++;
-};
-function tryHideFullScreenLoading() {
-  if (needLoadingRequestCount <= 0) return;
-  needLoadingRequestCount--;
-  if (needLoadingRequestCount === 0) {
-    endLoading();
-  }
-};
+}
 
 // 封装GET/POST请求
 function requestFun(url, method, data, header) {
-  data = data || {};
-  header = header || 'application/x-www-form-urlencoded';
-  wx.showNavigationBarLoading();
-  showFullScreenLoading();
+  data = data || {}
+  header = header || 'application/x-www-form-urlencoded'
+  wx.showNavigationBarLoading()
+  loadingFactory.showFullScreenLoading()
 
   let promise = new Promise(function (resolve, reject) {
     wx.request({
@@ -93,20 +92,37 @@ function requestFun(url, method, data, header) {
         //     }
         //   }
         // }
-        resolve(res);
-        tryHideFullScreenLoading();
+        resolve(res)
+        loadingFactory.tryHideFullScreenLoading()
       },
       fail: function (res) {
         // fail调用接口失败
-        reject({ error: '网络错误', code: 0 });
-        tryHideFullScreenLoading();
+        reject({ error: '网络错误', code: 0 })
+        loadingFactory.tryHideFullScreenLoading()
       },
       complete: function () {
         wx.hideNavigationBarLoading();
       }
-    });
-  });
+    })
+  })
   return promise;
+}
+
+// 对象转数组
+function objectRetrunArray(data) {
+  var newArray = []
+
+  data.forEach(data_data => {
+    var newObj = {}
+
+    for (var i in data_data) {
+      newObj[i] = data_data[i]
+    }
+    
+    newArray.push(newObj)
+  })
+
+  return newArray
 }
 
 module.exports = {
@@ -117,5 +133,6 @@ module.exports = {
     return requestFun(url, "POST", data, header);
   },
   formatTime: formatTime,
-  formatDate: formatDate
+  formatDate: formatDate,
+  objectRetrunArray: objectRetrunArray
 };

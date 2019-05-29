@@ -9,7 +9,7 @@
   </view>
 
   <view class="padding-lr text-right">
-    <navigator class="cu-btn round bg-orange" url="/pages/presentation_edit/presentation_edit?id={{ item.id }}">修改</navigator>
+    <navigator class="cu-btn round bg-orange" url="/pages/presentation_active/presentation_active?id={{ item.id }}">修改</navigator>
     <navigator class="cu-btn round bg-blue margin-left-sm" url="/pages/presentation_details/presentation_details?id={{ item.id }}">查看</navigator>
     <view class="cu-btn round bg-green margin-left-sm">生成</view>
   </view>

@@ -24,7 +24,7 @@ Component({
       icon: 'cuIcon-home'
     }, {
       title: '勘查施工',
-      url: '/pages/presentation_add/presentation_add',
+      url: '/pages/presentation_active/presentation_active',
       icon: 'cuIcon-post'
     }, {
       title: '报告管理',

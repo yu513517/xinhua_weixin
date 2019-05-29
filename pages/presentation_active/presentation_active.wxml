@@ -1,0 +1,243 @@
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content">新增勘察施工</view>
+</cu-custom>
+
+<form bindsubmit="submitPresentation">
+  <!-- 勘察员 -->
+  <view class="cu-form-group">
+    <view class="title">勘察人员</view>
+    <input placeholder="请填写勘察人员姓名" class="text-df" value="{{ submitData.survey_name }}" bindinput="inputChange" data-key="survey_name"></input>
+  </view>
+  <!-- End 勘察员 -->
+
+  <!-- 勘察日期 -->
+  <view class="cu-form-group">
+    <view class="title">勘察日期</view>
+    <picker mode="date" value="{{ submitData.survey_date }}" bindchange="selectorChange" data-key="survey_date" data-isdate="true">
+      <view class="picker text-left text-df">
+        {{ submitData.survey_date }}
+      </view>
+    </picker>
+  </view>
+  <!-- End 勘察日期 -->
+
+  <!-- 客户名称 -->
+  <view class="cu-form-group">
+    <view class="title">客户名称</view>
+    <input placeholder="请填写客户名称" class="text-df" value="{{ submitData.customer_name }}" bindinput="inputChange" data-key="customer_name"></input>
+  </view>
+  <!-- End 客户名称 -->
+
+  <!-- 客户地址 -->
+  <view class="cu-form-group">
+    <view class="title">客户地址</view>
+    <input placeholder="请输入客户地址" disabled class="text-df" value="{{ submitData.customer_address }}"></input>
+    <button class="cu-btn bg-green shadow" bindtap="getUserLocation">获取</button>
+  </view>
+  <!-- End 客户地址 -->
+
+  <!-- 检查目的 -->
+  <view class="cu-form-group">
+    <view class="title">检查目的</view>
+    <input value="已选{{ submitData.inspect_purpose.length }}项" disabled bindtap="showModal" data-target="inspect_purpose" class="text-df"></input>
+    <text class="cuIcon-right" bindtap="showModal"></text>
+
+    <view class="cu-modal bottom-modal {{ modal_name == 'inspect_purpose' ? 'show' : '' }}" bindtap="hideModal">
+      <view class="cu-dialog" catchtap>
+        <view class="padding-sm">
+          <scroll-view scroll-y style="max-height: 550rpx;">
+            <checkbox-group bindchange="selectorChange" data-key="inspect_purpose">
+              <view class="cu-form-group" wx:for="{{ showData.inspect_purpose }}" wx:key="inspect_purpose">
+                <view class="title">{{ item.name }}</view>
+                <checkbox class="round blue" 
+                  value="{{ item.id + ',' + index }}" 
+                  checked="{{ item.isChecked }}"
+                ></checkbox>
+              </view>
+            </checkbox-group>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- End 检查目的 -->
+
+  <!-- 检查方法 -->
+  <view class="cu-form-group">
+    <view class="title">检查方法</view>
+    <input value="已选{{ submitData.inspect_way.length }}项" disabled bindtap="showModal" data-target="inspect_way" class="text-df"></input>
+    <text class="cuIcon-right" bindtap="showModal"></text>
+
+    <view class="cu-modal bottom-modal {{ modal_name == 'inspect_way' ? 'show' : '' }}" bindtap="hideModal">
+      <view class="cu-dialog" catchtap>
+        <view class="padding-sm">
+          <scroll-view scroll-y style="max-height: 550rpx;">
+            <checkbox-group bindchange="selectorChange" data-key="inspect_way">
+              <view class="cu-form-group" wx:for="{{ showData.inspect_way }}" wx:key="inspect_way">
+                <view class="title">{{ item.name }}</view>
+                <checkbox class="round blue" 
+                  value="{{ item.id + ',' + index }}" 
+                  checked="{{ item.isChecked }}"
+                ></checkbox>
+              </view>
+            </checkbox-group>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- End 检查方法 -->
+
+  <!-- 检查设备 -->
+  <view class="cu-form-group">
+    <view class="title">检查设备</view>
+    <input value="已选{{ submitData.inspect_equipment.length }}项" disabled bindtap="showModal" data-target="inspect_equipment" class="text-df"></input>
+    <text class="cuIcon-right" bindtap="showModal"></text>
+
+    <view class="cu-modal bottom-modal {{ modal_name == 'inspect_equipment' ? 'show' : '' }}" bindtap="hideModal">
+      <view class="cu-dialog" catchtap>
+        <view class="padding-sm">
+          <scroll-view scroll-y style="max-height: 550rpx;">
+            <checkbox-group bindchange="selectorChange" data-key="inspect_equipment">
+              <view class="cu-form-group" wx:for="{{ showData.inspect_equipment }}" wx:key="inspect_equipment">
+                <view class="title">{{ item.name }}</view>
+                <checkbox class="round blue" 
+                  value="{{ item.id + ',' + index }}" 
+                  checked="{{ item.isChecked }}"
+                ></checkbox>
+              </view>
+            </checkbox-group>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- End 检查设备 -->
+
+  <!-- 现场情况 -->
+  <view class="cu-form-group">
+    <view class="title">现场情况</view>
+    <input value="已选{{ submitData.scene.length }}项" disabled bindtap="showModal" data-target="scene" class="text-df"></input>
+    <text class="cuIcon-right" bindtap="showModal"></text>
+
+    <view class="cu-modal bottom-modal {{ modal_name == 'scene' ? 'show' : '' }}" bindtap="hideModal">
+      <view class="cu-dialog" catchtap>
+        <view class="padding-sm">
+          <scroll-view scroll-y style="max-height: 550rpx;">
+            <checkbox-group bindchange="selectorChange" data-key="scene">
+              <view class="cu-form-group" wx:for="{{ showData.scene }}" wx:key="scene">
+                <view class="title">{{ item.name }}</view>
+                <checkbox class="round blue" 
+                  value="{{ item.id + ',' + index }}" 
+                  checked="{{ item.isChecked }}"
+                ></checkbox>
+              </view>
+            </checkbox-group>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- End 现场情况 -->
+
+  <!-- 内部备注 -->
+  <view class="cu-form-group margin-top-sm">
+    <textarea placeholder="{{ modal_name != null ? '' : '请填写内部备注' }}" maxlength="-1" disabled="{{ modal_name != null }}" value="{{ submitData.remarks }}" bindinput="inputChange" data-key="remarks"></textarea>
+  </view>
+  <!-- End 内部备注 -->
+
+  <view class="margin-top" wx:for="{{ showData.scene_problems }}" wx:for-item="scene_problems" wx:for-index="scene_problems_index" wx:key="scene_problems">
+    <!-- 现场照片 -->
+    <view class="cu-bar bg-white solid-bottom margin-top">
+      <view class="action">现场照片</view>
+      <view class="action">
+        <button class="cu-btn round bg-green" bindtap="chooseScenePhotos" data-index="{{ scene_problems_index }}">
+          <text class="cuIcon-upload"></text> 拍照
+        </button>
+      </view>
+    </view>
+
+    <view hidden="{{ scene_problems.scene_photo == '' ? true : '' }}"><image src="{{ scene_problems.scene_photo }}" style="width: 100%;" mode="widthFix"></image></view>
+    <!-- End 现场照片 -->
+
+    <!-- 风险等级 -->
+    <view class="cu-form-group">
+      <view class="title">风险等级</view>
+      <picker bindchange="selectorChange" data-ismultiple="false" data-key="scene_problems" data-keyindex="{{ scene_problems_index }}" data-itemkey="risk_level" value="{{ scene_problems.risk_level_index }}" range="{{ scene_problems.risk_level }}" range-key="{{ 'title' }}">
+        <view class="picker">
+          {{ scene_problems.risk_level[scene_problems.risk_level_index].title }}
+        </view>
+      </picker>
+    </view>
+    <!-- End 风险等级 -->
+
+    <!-- 检查区域 -->
+    <view class="cu-form-group">
+      <view class="title">检查区域</view>
+      <picker bindchange="selectorChange" data-ismultiple="false" data-key="scene_problems" data-keyindex="{{ scene_problems_index }}" data-itemkey="inspect_region" value="{{ scene_problems.inspect_region_index }}" range="{{ scene_problems.inspect_region }}" range-key="{{ 'name' }}">
+        <view class="picker">
+          {{ scene_problems.inspect_region[scene_problems.inspect_region_index].name }}
+        </view>
+      </picker>
+    </view>
+    <!-- End 检查区域 -->
+
+    <!-- 选择预设/手动输入控制器 -->
+    <view class="cu-form-group">
+      <view class="title">{{ submitData.scene_problems[scene_problems_index].preset_switch ? '选择预设' : '手动输入' }}</view>
+      <switch checked="{{ submitData.scene_problems[scene_problems_index].preset_switch }}" bindchange="presetSwitch" data-index="{{ scene_problems_index }}"></switch>
+    </view>
+    <!-- End 选择预设/手动输入控制器 -->
+
+    <!-- 选择预设 -->
+    <view class="cu-form-group" style="display: {{ submitData.scene_problems[scene_problems_index].preset_switch ? '' : 'none' }}">
+      <view class="title">选择预设</view>
+      <input value="已选{{ submitData.scene_problems[scene_problems_index].preset.length }}项" disabled bindtap="showModal" data-target="preset_{{ scene_problems_index }}" class="text-df"></input>
+      <text class="cuIcon-right" bindtap="showModal"></text>
+
+      <view class="cu-modal bottom-modal {{ modal_name == 'preset_' + scene_problems_index ? 'show' : '' }}" bindtap="hideModal">
+        <view class="cu-dialog" catchtap>
+          <view class="padding-sm">
+            <scroll-view scroll-y style="max-height: 550rpx;">
+              <checkbox-group bindchange="selectorChange" data-key="scene_problems" data-keyindex="{{ scene_problems_index }}" data-itemkey="preset">
+                <view class="cu-form-group" wx:for="{{ scene_problems.preset }}" wx:for-index="preset_index" wx:for-item="preset" wx:key="preset">
+                  <view class="title">{{ preset.xianshibiaoti }}</view>
+                  <checkbox class="round blue" 
+                    value="{{ preset.id + ',' + preset_index }}" 
+                    checked="{{ preset.isChecked }}"
+                  ></checkbox>
+                </view>
+              </checkbox-group>
+            </scroll-view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- End 选择预设 -->
+
+    <!-- 存在问题 -->
+    <view class="cu-form-group" style="display: {{ submitData.scene_problems[scene_problems_index].preset_switch ? 'none' : '' }}">
+      <textarea placeholder="{{ modal_name != null ? '' : '请填写存在问题' }}" maxlength="-1" disabled="{{ modal_name != null }}" class="margin-tb-sm response" style="height: 150rpx" value="{{ submitData.scene_problems[scene_problems_index].existing_problems }}" bindinput="inputChange" data-key="scene_problems" data-index="{{ scene_problems_index }}" data-itemkey="existing_problems"></textarea>
+    </view>
+    <!-- End 存在问题 -->
+
+    <!-- 改进意见 -->
+    <view class="cu-form-group" style="display: {{ submitData.scene_problems[scene_problems_index].preset_switch ? 'none' : '' }}">
+      <textarea placeholder="{{ modal_name != null ? '' : '请填写改进意见' }}" maxlength="-1" disabled="{{ modal_name != null }}" class="margin-tb-sm response" style="height: 150rpx" value="{{ submitData.scene_problems[scene_problems_index].improvement_suggestions }}" bindinput="inputChange" data-key="scene_problems" data-itemkey="improvement_suggestions" data-index="{{ scene_problems_index }}"></textarea>
+    </view>
+    <!-- End 改进意见 -->
+
+    <view class="bg-white padding-sm" hidden="{{ scene_problems.canDel }}">
+      <button class="cu-ctn bg-red" bindtap="delProblems" data-index="{{ scene_problems_index }}">删除问题</button>
+    </view>
+  </view>
+
+  <view class="cu-bar btn-group padding">
+    <button class="cu-btn bg-blue shadow-blur lg" bindtap="newProblems">新增问题</button>
+    <button class="cu-btn bg-green shadow-blur lg" form-type="submit">确认提交</button>
+  </view>
+</form>
+
+<!-- 底部工具栏 -->
+<site-tabbar active="{{ presentation_id == '' ? 1 : 2 }}"></site-tabbar>
+<!-- End 底部工具栏 -->

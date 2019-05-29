@@ -227,5 +227,5 @@
 </form>
 
 <!-- 底部工具栏 -->
-<site-tabbar active="1"></site-tabbar>
+<site-tabbar active="2"></site-tabbar>
 <!-- End 底部工具栏 -->
