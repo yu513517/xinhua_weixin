@@ -1,5 +1,5 @@
 <cu-custom bgColor="bg-gradual-blue">
-  <view slot="content">新增勘察施工</view>
+  <view slot="content">勘察施工</view>
 </cu-custom>
 
 <form bindsubmit="submitPresentation">
