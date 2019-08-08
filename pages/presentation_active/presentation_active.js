@@ -102,8 +102,6 @@ Page({
       if(this.data.presentation_id != '') {
         // 拉取修改的数据
         util.post('wxHelper/baogaoupYs.php', { jingling: this.data.jingling, code: options.id }).then(default_res => {
-          // console.log(default_res)
-
           // 勾选检查目的
           _this.data.showData.inspect_purpose.forEach(select_item => {
             // 先初始化选中状态
@@ -193,11 +191,11 @@ Page({
             })
 
             // 如果有上传图片则增加默认图片服务器地址，没有则保持原值
-            item.img_address = item.img_address ? app.globalData.baseUrl + item.img_address : ''
+            // item.img_address = item.img_address ? app.globalData.baseUrl + item.img_address : ''
             // 是否开启删除按钮
-            var canDel = index == 0 ? false : true
+            var canDel = index == 0 ? true : false
             _this.data.showData.scene_problems.unshift({
-              scene_photo         : item.img_address,       // 现场照片
+              scene_photo         : item.img_address ? app.globalData.baseUrl + item.img_address : '',       // 现场照片
               risk_level          : risk_level,             // 风险等级
               risk_level_index    : risk_level_index,       // 风险等级index
               inspect_region      : inspect_region,         // 检查区域
@@ -212,14 +210,14 @@ Page({
               risk_level             : Number(item.fengxiandengji),   // 风险等级
               inspect_region         : Number(item.jianchaquyu),      // 检查区域
               preset_switch          : Boolean(item.yushe),           // 内置预设 OR 手动输入
-              preset                 : item.yusheid,                  // 内置预设
+              preset                 : item.yusheid == '' ? [] : item.yusheid,                  // 内置预设
               existing_problems      : item.cunzaiwenti,              // 存在问题
               improvement_suggestions: item.gaijinyijian              // 改进意见
             })
           })
 
           _this.setData({
-            ddid                            : default_res.data.ddid,
+            ['submitData.ddid']      : default_res.data.ddid,
             ['submitData.survey_name']      : default_res.data.kanchayuan,
             ['submitData.survey_date']      : default_res.data.kanchariqi,
             ['submitData.customer_name']    : default_res.data.kehuname,
@@ -242,8 +240,6 @@ Page({
           ['submitData.survey_date']: util.formatDate(new Date())
         })
       }
-
-      // console.log(_this.data)
     })
   },
 
@@ -412,8 +408,6 @@ Page({
         }
       }
     }
-
-    // console.log(this.data)
   },
 
   // 新增问题
@@ -445,8 +439,6 @@ Page({
       ['showData.scene_problems']: this.data.showData.scene_problems,
       ['submitData.scene_problems']: this.data.submitData.scene_problems
     })
-
-    // console.log(this.data)
   },
 
   // 删除问题

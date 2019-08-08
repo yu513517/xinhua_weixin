@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imgBaseUrl: app.globalData.imgBaseUrl,
+    imgBaseUrl: app.globalData.baseUrl,
     kehulogo: '',
     xuanchuan: '',
     kanchayuan: '',
