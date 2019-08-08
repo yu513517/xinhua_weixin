@@ -183,6 +183,32 @@
     </view>
     <!-- End 检查区域 -->
 
+    <!-- 发现虫害 -->
+    <view class="cu-form-group">
+      <view class="title">发现虫害</view>
+      <input value="已选{{ submitData.scene_problems[scene_problems_index].insect_pest.length }}项" disabled bindtap="showModal" data-target="insect_pest_{{ scene_problems_index }}" class="text-df"></input>
+      <text class="cuIcon-right" bindtap="showModal"></text>
+
+      <view class="cu-modal bottom-modal {{ modal_name == 'insect_pest_' + scene_problems_index ? 'show' : '' }}" bindtap="hideModal">
+        <view class="cu-dialog" catchtap>
+          <view class="padding-sm">
+            <scroll-view scroll-y style="max-height: 550rpx;">
+              <checkbox-group bindchange="selectorChange" data-key="scene_problems" data-keyindex="{{ scene_problems_index }}" data-itemkey="insect_pest">
+                <view class="cu-form-group" wx:for="{{ scene_problems.insect_pest }}" wx:for-index="insect_pest_index" wx:for-item="insect_pest" wx:key="insect_pest">
+                  <view class="title">{{ insect_pest.name }}</view>
+                  <checkbox class="round blue" 
+                    value="{{ insect_pest.id + ',' + insect_pest_index }}" 
+                    checked="{{ insect_pest.isChecked }}"
+                  ></checkbox>
+                </view>
+              </checkbox-group>
+            </scroll-view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- End 发现虫害 -->
+
     <!-- 选择预设/手动输入控制器 -->
     <view class="cu-form-group">
       <view class="title">{{ submitData.scene_problems[scene_problems_index].preset_switch ? '选择预设' : '手动输入' }}</view>

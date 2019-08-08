@@ -11,9 +11,10 @@ Page({
     jingling       : wx.getStorageSync('loginJingling'),   // 获取秘钥
     presentation_id: '',                                   // 需要修改的文章id
 
-    selects_region   : [],   // 检测区域默认数据
-    selects_preset   : [],   // 内置预设默认数据
-    selects_risk     : [
+    selects_region     : [],   // 检测区域默认数据
+    selects_preset     : [],   // 内置预设默认数据
+    selects_insect_pest: [],   // 发现虫害默认数据
+    selects_risk       : [
       {
         id   : 0,
         title: '低'
@@ -41,6 +42,7 @@ Page({
           inspect_region      : [],   // 检查区域
           inspect_region_index: 0,    // 检查区域index
           preset              : [],   // 内置预设
+          insect_pest         : [],   // 发现虫害
           canDel              : true  // 是否显示删除按钮
         }
       ]
@@ -65,6 +67,7 @@ Page({
           inspect_region         : 0,      // 检查区域
           preset_switch          : true,   // 内置预设 OR 手动输入
           preset                 : [],     // 内置预设
+          insect_pest            : [],     // 发现虫害
           existing_problems      : '',     // 存在问题
           improvement_suggestions: ''      // 改进意见
         }
@@ -89,13 +92,15 @@ Page({
       _this.setData({
         selects_region                               : res.data.jianchaquyu,
         selects_preset                               : res.data.jianchayushe,
+        selects_insect_pest                          : res.data.chonghai,
         ['showData.inspect_purpose']                 : util.objectRetrunArray(res.data.jianchamudi),
         ['showData.inspect_way']                     : util.objectRetrunArray(res.data.jianchafangfa),
         ['showData.inspect_equipment']               : util.objectRetrunArray(res.data.jianchashebei),
         ['showData.scene']                           : util.objectRetrunArray(res.data.xianchangkancha),
         ['showData.scene_problems[0].risk_level']    : util.objectRetrunArray(_this.data.selects_risk),
         ['showData.scene_problems[0].inspect_region']: util.objectRetrunArray(res.data.jianchaquyu),
-        ['showData.scene_problems[0].preset']        : util.objectRetrunArray(res.data.jianchayushe)
+        ['showData.scene_problems[0].preset']        : util.objectRetrunArray(res.data.jianchayushe),
+        ['showData.scene_problems[0].insect_pest']   : util.objectRetrunArray(res.data.chonghai)
       })
 
       // 判断是否为修改页面，初始化页面显示数据
@@ -160,6 +165,7 @@ Page({
             var inspect_region       = util.objectRetrunArray(_this.data.selects_region)
             var inspect_region_index = 0
             var preset               = util.objectRetrunArray(_this.data.selects_preset)
+            var insect_pest          = util.objectRetrunArray(_this.data.selects_insect_pest)
 
             // 风险等级赋值
             risk_level.forEach((risk_item, risk_index) => {
@@ -190,29 +196,59 @@ Page({
               })
             })
 
+            // 发现虫害赋值
+            insect_pest.forEach(insect_pest_item => {
+              insect_pest_item.isChecked = false
+
+              item.chonghaiid.forEach(item => {
+                if (insect_pest_item.id == item) {
+                  insect_pest_item.isChecked = true
+                }
+              })
+            })
+
             // 如果有上传图片则增加默认图片服务器地址，没有则保持原值
             // item.img_address = item.img_address ? app.globalData.baseUrl + item.img_address : ''
             // 是否开启删除按钮
             var canDel = index == 0 ? true : false
             _this.data.showData.scene_problems.unshift({
-              scene_photo         : item.img_address ? app.globalData.baseUrl + item.img_address : '',       // 现场照片
-              risk_level          : risk_level,             // 风险等级
-              risk_level_index    : risk_level_index,       // 风险等级index
-              inspect_region      : inspect_region,         // 检查区域
-              inspect_region_index: inspect_region_index,   // 检查区域index
-              preset              : preset,                 // 内置预设
-              canDel              : canDel                  // 是否显示删除按钮
+              // 现场照片
+              scene_photo: item.img_address ? app.globalData.baseUrl + item.img_address: '',
+              // 风险等级
+              risk_level: risk_level,
+              // 风险等级index
+              risk_level_index: risk_level_index,
+              // 检查区域
+              inspect_region: inspect_region,
+              // 检查区域index
+              inspect_region_index: inspect_region_index,
+              // 内置预设
+              preset: preset,
+              // 发现虫害
+              insect_pest: insect_pest,
+              // 是否显示删除按钮
+              canDel: canDel
             })
 
             _this.data.submitData.scene_problems.unshift({
-              id                     : item.id,                       // 问题ID
-              scene_photo            : item.img_address,              // 现场照片
-              risk_level             : Number(item.fengxiandengji),   // 风险等级
-              inspect_region         : Number(item.jianchaquyu),      // 检查区域
-              preset_switch          : Boolean(item.yushe),           // 内置预设 OR 手动输入
-              preset                 : item.yusheid == '' ? [] : item.yusheid,                  // 内置预设
-              existing_problems      : item.cunzaiwenti,              // 存在问题
-              improvement_suggestions: item.gaijinyijian              // 改进意见
+              // 问题ID
+              id: item.id,
+              // 现场照片
+              scene_photo: item.img_address,
+              // 风险等级
+              risk_level: Number(item.fengxiandengji),
+              // 检查区域
+              inspect_region: Number(item.jianchaquyu),
+              // 内置预设 OR 手动输入
+              preset_switch: Boolean(item.yushe),
+              // 内置预设
+              preset : item.yusheid == '' ? [] : item.yusheid,
+              // 发现虫害
+              insect_pest : item.chonghaiid == '' ? [] : item.chonghaiid,
+              // 存在问题
+              existing_problems: item.cunzaiwenti,
+              // 改进意见
+              improvement_suggestions: item.gaijinyijian
             })
           })
 
@@ -223,10 +259,10 @@ Page({
             ['submitData.customer_name']    : default_res.data.kehuname,
             ['submitData.customer_address'] : default_res.data.address,
             ['submitData.remarks']          : default_res.data.beizhu,
-            ['submitData.inspect_purpose']  : default_res.data.jianchamudi,
-            ['submitData.inspect_way']      : default_res.data.jianchafangfa,
-            ['submitData.inspect_equipment']: default_res.data.jianchashebei,
-            ['submitData.scene']            : default_res.data.xianchangqingkuang,
+            ['submitData.inspect_purpose']  : default_res.data.jianchamudi == '' ? [] : default_res.data.jianchamudi,
+            ['submitData.inspect_way']      : default_res.data.jianchafangfa == '' ? [] : default_res.data.jianchafangfa,
+            ['submitData.inspect_equipment']: default_res.data.jianchashebei == '' ? [] : default_res.data.jianchashebei,
+            ['submitData.scene']            : default_res.data.xianchangqingkuang == '' ? [] : default_res.data.xianchangqingkuang,
             ['submitData.scene_problems']   : _this.data.submitData.scene_problems,
             ['showData.inspect_purpose']    : _this.data.showData.inspect_purpose,
             ['showData.inspect_way']        : _this.data.showData.inspect_way,
@@ -413,13 +449,14 @@ Page({
   // 新增问题
   newProblems: function() {
     var show_scene_problems = {
-      scene_photo         : '',                                                 // 现场照片
-      risk_level          : util.objectRetrunArray(this.data.selects_risk),     // 风险等级
-      risk_level_index    : 0,                                                  // 风险等级index
-      inspect_region      : util.objectRetrunArray(this.data.selects_region),   // 检查区域
-      inspect_region_index: 0,                                                  // 检查区域index
-      preset              : util.objectRetrunArray(this.data.selects_preset),   // 内置预设
-      canDel              : false                                               // 是否显示删除按钮
+      scene_photo         : '',                                                      // 现场照片
+      risk_level          : util.objectRetrunArray(this.data.selects_risk),          // 风险等级
+      risk_level_index    : 0,                                                       // 风险等级index
+      inspect_region      : util.objectRetrunArray(this.data.selects_region),        // 检查区域
+      inspect_region_index: 0,                                                       // 检查区域index
+      preset              : util.objectRetrunArray(this.data.selects_preset),        // 内置预设
+      insect_pest         : util.objectRetrunArray(this.data.selects_insect_pest),   // 发现虫害
+      canDel              : false                                                    // 是否显示删除按钮
     }
 
     var submit_scene_problems = {
@@ -428,6 +465,7 @@ Page({
       inspect_region         : 0,      // 检查区域
       preset_switch          : true,   // 内置预设 OR 手动输入
       preset                 : [],     // 内置预设
+      insect_pest            : [],     // 发现虫害
       existing_problems      : '',     // 存在问题
       improvement_suggestions: ''      // 改进意见
     }
