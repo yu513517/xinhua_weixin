@@ -18,7 +18,7 @@ Page({
 
   // 获取信息列表
   messageUpdata(_this) {
-    // 获取秘钥的dfdfdf
+    // 获取秘钥
     var jingling = wx.getStorageSync('loginJingling');
 
     // 信息
